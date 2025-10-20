@@ -1,163 +1,103 @@
-# Urban Spoon - Hello World Azure Static Web App
+# Urban Spoon
 
-A simple Hello World application demonstrating CI/CD deployment to Azure Static Web Apps.
+A simple "Hello World" Angular application deployed to Azure Static Web Apps with CI/CD.
 
-## 🎯 Purpose
+## Overview
 
-This project demonstrates:
-- Building a simple static web application
-- Deploying to Azure Static Web Apps
-- Implementing CI/CD with GitHub Actions
-- Teaching students modern web deployment practices
+This is a minimal Angular application demonstrating deployment to Azure Static Web Apps using GitHub Actions for continuous integration and deployment.
 
-## 🚀 Features
+## Features
 
-- Clean, responsive Hello World page
-- Automatic deployment via GitHub Actions
-- Modern CSS with animations
-- Mobile-friendly design
+- Simple Angular standalone component
+- Azure Static Web Apps deployment
+- Automated CI/CD with GitHub Actions
+- Responsive "Hello World" interface
 
-## 📁 Project Structure
+## Prerequisites
+
+- Node.js (v20 or later)
+- npm
+- Angular CLI (`npm install -g @angular/cli`)
+
+## Local Development
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start development server:**
+   ```bash
+   ng serve
+   ```
+   Navigate to `http://localhost:4200/`. The app will automatically reload when you change source files.
+
+3. **Build the project:**
+   ```bash
+   ng build
+   ```
+   Build artifacts will be stored in the `dist/urban-spoon-app/` directory.
+
+4. **Run tests:**
+   ```bash
+   ng test
+   ```
+
+## Azure Static Web Apps Deployment
+
+This project is configured for automatic deployment to Azure Static Web Apps.
+
+### Setup Instructions
+
+1. **Create an Azure Static Web App:**
+   - Go to [Azure Portal](https://portal.azure.com)
+   - Create a new Static Web App resource
+   - Link it to this GitHub repository
+
+2. **Configure the secret:**
+   - Azure will automatically add the `AZURE_STATIC_WEB_APPS_API_TOKEN` secret to your repository
+   - This enables the GitHub Actions workflow to deploy your app
+
+3. **Automatic deployment:**
+   - Push to the `main` branch to trigger deployment
+   - Pull requests will create preview environments
+   - When PRs are closed, preview environments are cleaned up
+
+### Workflow Configuration
+
+The deployment workflow is defined in `.github/workflows/azure-static-web-apps.yml`:
+- **App location:** `/` (root of the repository)
+- **Output location:** `dist/urban-spoon-app` (Angular build output)
+- **Triggers:** Push to main branch and pull request events
+
+## Project Structure
 
 ```
-.
-├── index.html                          # Main HTML page
-├── styles.css                          # CSS styling
-├── script.js                           # JavaScript functionality
+urban-spoon/
+├── src/
+│   ├── app/
+│   │   ├── app.ts          # Main application component
+│   │   ├── app.html        # Component template
+│   │   ├── app.css         # Component styles
+│   │   └── app.spec.ts     # Unit tests
+│   ├── index.html          # Main HTML file
+│   └── main.ts             # Application entry point
 ├── .github/
 │   └── workflows/
 │       └── azure-static-web-apps.yml  # CI/CD workflow
-└── README.md                           # This file
+├── angular.json            # Angular CLI configuration
+├── package.json            # npm dependencies
+└── tsconfig.json           # TypeScript configuration
 ```
 
-## 🛠️ Setup Instructions
+## Technologies Used
 
-### Prerequisites
-- GitHub account
-- Azure account (free tier works!)
+- **Angular** (v20.3.6) - Frontend framework
+- **TypeScript** - Programming language
+- **Azure Static Web Apps** - Hosting platform
+- **GitHub Actions** - CI/CD pipeline
 
-### Azure Static Web Apps Setup
-
-1. **Create Azure Static Web App**
-   - Go to [Azure Portal](https://portal.azure.com)
-   - Click "Create a resource"
-   - Search for "Static Web App"
-   - Click "Create"
-
-2. **Configure the Static Web App**
-   - **Subscription**: Select your subscription
-   - **Resource Group**: Create new or use existing
-   - **Name**: Choose a unique name (e.g., `urban-spoon-demo`)
-   - **Region**: Choose closest to you
-   - **Source**: Select "GitHub"
-   - **GitHub Account**: Authorize and select your account
-   - **Organization**: Select your GitHub username
-   - **Repository**: Select `urban-spoon`
-   - **Branch**: Select `main`
-   - **Build Presets**: Select "Custom"
-   - **App location**: `/`
-   - **Api location**: (leave empty)
-   - **Output location**: (leave empty)
-
-3. **Get Deployment Token**
-   - After creation, go to your Static Web App resource
-   - Click "Manage deployment token"
-   - Copy the deployment token
-
-4. **Add Secret to GitHub**
-   - Go to your GitHub repository
-   - Click "Settings" → "Secrets and variables" → "Actions"
-   - Click "New repository secret"
-   - Name: `AZURE_STATIC_WEB_APPS_API_TOKEN`
-   - Value: Paste the deployment token
-   - Click "Add secret"
-
-### Manual Workflow Setup (if needed)
-
-If Azure didn't automatically create the workflow file:
-1. The workflow file is already in `.github/workflows/azure-static-web-apps.yml`
-2. Make sure the `AZURE_STATIC_WEB_APPS_API_TOKEN` secret is configured
-3. Push to the `main` branch to trigger deployment
-
-## 🎓 For Students
-
-### How CI/CD Works
-
-1. **Developer pushes code** to the `main` branch or opens a Pull Request
-2. **GitHub Actions triggers** automatically
-3. **Workflow runs** build and deployment steps
-4. **Azure deploys** the application
-5. **Live site updates** automatically!
-
-### Understanding the Workflow
-
-The `.github/workflows/azure-static-web-apps.yml` file contains:
-- **Triggers**: When to run (push to main, PR events)
-- **Jobs**: What to do (build and deploy, or close PR environment)
-- **Steps**: Individual actions to execute
-
-### Key Concepts
-
-- **Static Web App**: HTML, CSS, and JavaScript files served directly
-- **CI/CD**: Continuous Integration/Continuous Deployment
-- **GitHub Actions**: Automation platform for workflows
-- **Azure**: Microsoft's cloud computing platform
-
-## 🔄 Development Workflow
-
-1. Make changes to `index.html`, `styles.css`, or `script.js`
-2. Commit and push to your branch
-3. Open a Pull Request to `main`
-4. Review the preview deployment
-5. Merge to `main` to deploy to production
-
-## 🌐 Local Development
-
-Simply open `index.html` in your web browser:
-
-```bash
-# Using Python
-python -m http.server 8000
-
-# Using Node.js
-npx http-server
-
-# Or just open the file directly
-open index.html  # macOS
-start index.html # Windows
-xdg-open index.html # Linux
-```
-
-Then visit: `http://localhost:8000`
-
-## 📝 Customization
-
-### Update the Content
-Edit `index.html` to change the message and structure.
-
-### Modify Styling
-Edit `styles.css` to customize colors, fonts, and layout.
-
-### Add Interactivity
-Edit `script.js` to add JavaScript functionality.
-
-## 🎨 Color Scheme
-
-- Primary: `#667eea` (Purple-Blue)
-- Secondary: `#764ba2` (Deep Purple)
-- Background: Linear gradient from primary to secondary
-- Text: `#333` (Dark Gray)
-
-## 🤝 Contributing
-
-This is a teaching/demo project. Feel free to fork and customize!
-
-## 📚 Additional Resources
-
-- [Azure Static Web Apps Documentation](https://docs.microsoft.com/azure/static-web-apps/)
-- [GitHub Actions Documentation](https://docs.github.com/actions)
-- [HTML/CSS/JavaScript Tutorials](https://developer.mozilla.org/)
-
-## 📄 License
+## License
 
 This project is open source and available for educational purposes.
+
